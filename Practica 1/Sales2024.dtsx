@@ -1,0 +1,409 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/22/2024 6:28:21 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="XXLION370XX"
+  DTS:CreatorName="XXLION370XX\Daniel Roa"
+  DTS:DTSID="{1C93E793-AA47-4F6C-89E8-08C66BFDD909}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="9226"
+  DTS:ObjectName="Sales2024"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{056F6FB2-C050-4E74-90B6-E7AC395105A9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Administrador de conexiones de archivos planos]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{2D959D3A-7463-4E78-A18F-3CE59E31D204}"
+      DTS:ObjectName="Administrador de conexiones de archivos planos">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\Users\Daniel Roa\source\Flat files\Sales2024.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="7"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Fecha"
+              DTS:DTSID="{F7FDFC64-94E4-44B3-8358-E224A8C2CDB3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="10"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Producto"
+              DTS:DTSID="{A6664336-F45C-4EF8-9821-D7752B50703B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="16"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Cantidad"
+              DTS:DTSID="{781D28E0-6DD8-40B8-9837-7317F8A9AA3C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="4"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Precio"
+              DTS:DTSID="{0F9437C2-7145-4F25-8936-9C61942ECACE}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Import data from CSV to SQL Database"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{89D1A2F1-64B8-4421-8471-4384D2CBD24B}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Import data from CSV to SQL Database"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Import data from CSV to SQL Database\Calculate total sales"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Calculate total sales"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Import data from CSV to SQL Database\Calculate total sales.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Import data from CSV to SQL Database\Calculate total sales.Inputs[Entrada de columna derivada].Columns[Cantidad]"
+                      cachedDataType="i1"
+                      cachedName="Cantidad"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Cantidad]" />
+                    <inputColumn
+                      refId="Package\Import data from CSV to SQL Database\Calculate total sales.Inputs[Entrada de columna derivada].Columns[Precio]"
+                      cachedDataType="r4"
+                      cachedName="Precio"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Precio]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\Import data from CSV to SQL Database\Calculate total sales.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de columna derivada].Columns[Total]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de columna derivada].Columns[Total]"
+                      name="Total"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">#{Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Cantidad]} * #{Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Precio]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Cantidad * Precio</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\Import data from CSV to SQL Database\Calculate total sales.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Import data from CSV to SQL Database\Calculate total sales.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Origen de archivo plano;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de archivo plano"
+              localeId="1033"
+              name="Extract Sales 2024 CSV"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica si las columnas de longitud cero se tratan como NULL."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre de una columna de salida que contiene el nombre de archivo. Si no se especifica ningún nombre, no se genera ninguna columna de salida con el nombre de archivo."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Administrador de conexiones de archivos planos]"
+                  connectionManagerRefId="Package.ConnectionManagers[Administrador de conexiones de archivos planos]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano]"
+                  name="Salida de origen de archivo plano">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Fecha]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Fecha]"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Fecha]"
+                      name="Fecha"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Producto]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Producto]"
+                      length="10"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Producto]"
+                      name="Producto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Cantidad]"
+                      dataType="i1"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Cantidad]"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Cantidad]"
+                      name="Cantidad"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Precio]"
+                      dataType="r4"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Precio]"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].Columns[Precio]"
+                      name="Precio"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si los datos están en formato binario."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Fecha]"
+                      dataType="date"
+                      name="Fecha" />
+                    <externalMetadataColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Producto]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Producto" />
+                    <externalMetadataColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Cantidad]"
+                      dataType="i1"
+                      name="Cantidad" />
+                    <externalMetadataColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano].ExternalColumns[Precio]"
+                      dataType="r4"
+                      name="Precio" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de archivo plano">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano].Columns[Columna de salida de error de origen de archivo plano]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Columna de salida de error de origen de archivo plano"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano].Columns[Columna de salida de error de origen de archivo plano]"
+                      name="Columna de salida de error de origen de archivo plano" />
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de error de origen de archivo plano].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Import data from CSV to SQL Database.Paths[Salida de origen de archivo plano]"
+              endId="Package\Import data from CSV to SQL Database\Calculate total sales.Inputs[Entrada de columna derivada]"
+              name="Salida de origen de archivo plano"
+              startId="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV.Outputs[Salida de origen de archivo plano]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="272,42"
+          Id="Package\Import data from CSV to SQL Database"
+          TopLeft="244,143" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Import data from CSV to SQL Database">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Import data from CSV to SQL Database\Extract Sales 2024 CSV"
+          TopLeft="245,100" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Import data from CSV to SQL Database\Calculate total sales"
+          TopLeft="259,200" />
+        <EdgeLayout
+          Id="Package\Import data from CSV to SQL Database.Paths[Salida de origen de archivo plano]"
+          TopLeft="345.5,142">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
